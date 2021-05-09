@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Local-Development": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "launchUrl": "help/",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CLUSTER_PORT": "7100",
+        "CLUSTER_IP": "127.0.0.1",
+        "CLUSTER_SEEDS": "akka.tcp://NetCoreCluster@127.0.0.1:7100",
+        "CLUSTER_ROLES": "WorkNode",
+        "ACTORSYSTEM": "NetCoreCluster"
+      },
+      "applicationUrl": "http://localhost:7000"
+    }
+  }
+}

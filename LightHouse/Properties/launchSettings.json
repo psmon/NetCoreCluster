@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "LightHouse": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "CLUSTER_IP": "127.0.0.1",
+        "CLUSTER_PORT": "4053",
+        "CLUSTER_SEEDS": "akka.tcp://NetCoreCluster@127.0.0.1:4053",
+        "ACTORSYSTEM": "NetCoreCluster"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

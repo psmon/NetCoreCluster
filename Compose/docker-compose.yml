@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  lighthouse:
+    image: ${DOCKER_REGISTRY-}lighthouse
+    build:
+      context: .
+      dockerfile: ../LightHouse/Dockerfile
+    environment:
+      ACTORSYSTEM: NetCoreCluster
+      CLUSTER_IP: lighthouse
+      CLUSTER_PORT: 4053
+      CLUSTER_SEEDS: akka.tcp://NetCoreCluster@lighthouse:4053
+    ports:
+     - 4053
+     - 9111:9110
+
+  netcoreapp1:
+    image: ${DOCKER_REGISTRY-}netcoreapp
+    build:
+      context: .
+      dockerfile: ../NetCoreCluster/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ACTORSYSTEM: NetCoreCluster
+      CLUSTER_IP: netcoreapp1
+      CLUSTER_PORT: 7000
+      CLUSTER_SEEDS: akka.tcp://NetCoreCluster@lighthouse:4053
+      CLUSTER_ROLES: "WorkNode"
+    depends_on:
+      - "lighthouse"
+
+  netcoreapp2:
+    image: ${DOCKER_REGISTRY-}netcoreapp
+    build:
+      context: .
+      dockerfile: ../NetCoreCluster/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ACTORSYSTEM: NetCoreCluster
+      CLUSTER_IP: netcoreapp2
+      CLUSTER_PORT: 7000
+      CLUSTER_SEEDS: akka.tcp://NetCoreCluster@lighthouse:4053
+      CLUSTER_ROLES: "WorkNode"
+    depends_on:
+      - "lighthouse"
