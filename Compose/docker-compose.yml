@@ -13,7 +13,6 @@ services:
       CLUSTER_SEEDS: akka.tcp://NetCoreCluster@lighthouse:4053
     ports:
      - 4053
-     - 9111:9110
 
   netcoreapp1:
     image: ${DOCKER_REGISTRY-}netcoreapp
@@ -43,4 +42,19 @@ services:
       CLUSTER_SEEDS: akka.tcp://NetCoreCluster@lighthouse:4053
       CLUSTER_ROLES: "WorkNode"
     depends_on:
-      - "lighthouse"
+      - "netcoreapp1"
+
+  netcoreapp3:
+    image: ${DOCKER_REGISTRY-}netcoreapp
+    build:
+      context: .
+      dockerfile: ../NetCoreCluster/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ACTORSYSTEM: NetCoreCluster
+      CLUSTER_IP: netcoreapp3
+      CLUSTER_PORT: 7000
+      CLUSTER_SEEDS: akka.tcp://NetCoreCluster@lighthouse:4053
+      CLUSTER_ROLES: "AdminNode"
+    depends_on:
+      - "netcoreapp2"

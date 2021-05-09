@@ -10,7 +10,7 @@
         "CLUSTER_PORT": "7100",
         "CLUSTER_IP": "127.0.0.1",
         "CLUSTER_SEEDS": "akka.tcp://NetCoreCluster@127.0.0.1:7100",
-        "CLUSTER_ROLES": "WorkNode",
+        "CLUSTER_ROLES": "WorkNode,AdminNode",
         "ACTORSYSTEM": "NetCoreCluster"
       },
       "applicationUrl": "http://localhost:7000"
